@@ -1,8 +1,62 @@
+@model pim8.Models.UserModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "SignUp";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Se cadastre!</h1>
+
+    <section id="login_form">
+
+        @using (Html.BeginForm("SignUp", "Auth", "aaaaaaaaaaaaaaa", FormMethod.Post)){
+             
+            <div class="form-group">
+            <div class="col-md-10">
+            @Html.LabelFor(m=> m.name)
+            @Html.TextBoxFor(m => m.name)  
+            @Html.ValidationMessageFor( m => m.name, "", new { @class="text-danger"})
+            </div>
+            </div>
+            <div class="form-group">
+            <div class="col-md-10">
+            @Html.LabelFor(m=> m.username)
+            @Html.TextBoxFor(m => m.username)  
+            @Html.ValidationMessageFor( m => m.username, "", new { @class="text-danger"})
+            </div>
+            </div>
+
+            <div class="form-group">
+            <div class="col-md-10">
+            @Html.LabelFor(m=> m.cpf)
+            @Html.TextBoxFor(m => m.cpf)  
+            @Html.ValidationMessageFor( m => m.cpf, "", new { @class="text-danger"})
+            </div>
+            </div>
+
+            <div class="form-group">
+            <div class="col-md-10">
+            @Html.LabelFor(m=> m.phone)
+            @Html.TextBoxFor(m => m.phone)  
+            @Html.ValidationMessageFor( m => m.phone, "", new { @class="text-danger"})
+            </div>
+            </div>
+
+            <div class="form-group">
+            <div class="col-md-10">
+            @Html.LabelFor(m=> m.password)
+            @Html.PasswordFor(m => m.password)  
+            @Html.ValidationMessageFor( m => m.password, "", new { @class="text-danger"})
+            </div>
+            </div>
+            <div class="form-group">
+            <div class="col-md-10">
+            @Html.LabelFor(m=> m.confirmation_password)
+            @Html.PasswordFor(m => m.confirmation_password)  
+            @Html.ValidationMessageFor( m => m.confirmation_password, "", new { @class="text-danger"})
+            </div>
+            </div>
+
+            <input type="submit" value="Logar"/>
+        }
+    </section>
 </div>
