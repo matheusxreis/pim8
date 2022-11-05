@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using pim8.Models;
 using Microsoft.AspNetCore;
-
+using pim8.Data;
 namespace pim8.Controllers;
 public class AuthController : Controller {
     private IActionResult IsLogged(){
@@ -49,6 +49,15 @@ public class AuthController : Controller {
             return View();
         }
         if(ModelState.IsValid){
+        MockRepository repository = new MockRepository();
+            UserEntity user = new UserEntity(
+                userModel.name, 
+                userModel.username, 
+                userModel.password, 
+                userModel.cpf,
+                userModel.phone
+            );
+            repository.save(user);
         return RedirectToAction("SignUpSuccess", "Auth");
         }
         return View();
