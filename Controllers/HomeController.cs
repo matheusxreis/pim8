@@ -13,9 +13,17 @@ public class HomeController : Controller
         _logger = logger;
     }
 
+    private IActionResult IsLogged(){
+         string? loggedIn = Request.Cookies["SESSION_UNIP_PIM8"];
+        if(loggedIn == null) { 
+          return RedirectToAction("SignIn", "Auth");
+        }
+        return View();
+    }
     public IActionResult Index()
     {
-        return View();
+               
+        return IsLogged();
     }
 
     public IActionResult Privacy()

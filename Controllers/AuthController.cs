@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using pim8.Models;
+using Microsoft.AspNetCore;
 
 namespace pim8.Controllers;
 public class AuthController : Controller {
@@ -10,11 +11,8 @@ public class AuthController : Controller {
 
     [HttpPost]
     public IActionResult SignIn(AuthModel authModel){
-
-        Console.WriteLine(authModel.password);
-
-        if(authModel.username == "adm") {
-            Console.WriteLine("inside condition");
+        if(authModel.username == "adm" && authModel.password == "adm") {
+            Response.Cookies.Append("SESSION_UNIP_PIM8", authModel.username);
             return RedirectToAction("Index", "Home");
         }else {
             ModelState.AddModelError("", "Inválido");
@@ -22,4 +20,11 @@ public class AuthController : Controller {
 
         return View();
     }
+
+     public IActionResult SignOut(){
+       Response.Cookies.Delete("SESSION_UNIP_PIM8");
+       return RedirectToAction("SignIn", "Auth");
+    }
+      
+
 }
