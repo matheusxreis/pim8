@@ -21,7 +21,7 @@ public class AuthController : Controller {
             Response.Cookies.Append("SESSION_UNIP_PIM8", authModel.username);
             return RedirectToAction("Index", "Home");
         }else {
-            ModelState.AddModelError("", "Inválido");
+            ModelState.AddModelError("", "Usuário ou senha não existem");
         }
 
         return View();

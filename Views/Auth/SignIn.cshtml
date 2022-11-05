@@ -5,10 +5,13 @@
 
 <div class="text-center">
     <h1 class="display-4">Authenticate in application</h1>
-
+    
     <section id="login_form">
 
         @using (Html.BeginForm("SignIn", "Auth", "aaaaaaaaaaaaaaa", FormMethod.Post)){
+            
+            @Html.ValidationSummary(true,"",new { @class="text-danger"})
+
              <div class="form-group">
             <div class="col-md-10">
             @Html.LabelFor(m=> m.username)
