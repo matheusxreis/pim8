@@ -15,13 +15,19 @@ public class AuthController : Controller {
         return IsLogged();
     }
 
+    
+
     [HttpPost]
     public IActionResult SignIn(AuthModel authModel){
-        if(authModel.username == "adm" && authModel.password == "adm") {
-            Response.Cookies.Append("SESSION_UNIP_PIM8", authModel.username);
+
+        MockRepository repository = MockRepository.getInstance();
+        UserEntity? user = repository.getUserByUsername(authModel.username);
+        Console.WriteLine("DAD0 DO LOGIN = ())()()====>"+user?.cpf);
+        if(user != null && user.password == authModel.password ){ 
+            Response.Cookies.Append("SESSION_UNIP_PIM8", user.id.ToString());
             return RedirectToAction("Index", "Home");
-        }else {
-            ModelState.AddModelError("", "Usuário ou senha não existem");
+        }else{
+            ModelState.AddModelError("", "Usuário ou senha incorretos");
         }
 
         return View();
@@ -49,7 +55,7 @@ public class AuthController : Controller {
             return View();
         }
         if(ModelState.IsValid){
-        MockRepository repository = new MockRepository();
+        MockRepository repository = MockRepository.getInstance();
             UserEntity user = new UserEntity(
                 userModel.name, 
                 userModel.username, 
@@ -57,7 +63,9 @@ public class AuthController : Controller {
                 userModel.cpf,
                 userModel.phone
             );
+            Console.WriteLine("DAD0 1 = ())()()====>"+user.cpf);
             repository.save(user);
+
         return RedirectToAction("SignUpSuccess", "Auth");
         }
         return View();
