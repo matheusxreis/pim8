@@ -38,8 +38,16 @@ public class AuthController : Controller {
 
     [HttpPost]
     public IActionResult SignUp(UserModel userModel){
-        Console.WriteLine("Model" + ModelState.IsValid);
-        
+
+        if(userModel.username=="adm"){
+            ModelState.AddModelError("username", "Nome de usuário existente.");
+            return View();
+        }
+        if(userModel.password != userModel.confirmation_password){
+            ModelState.AddModelError("confirmation_password", "Senhas não correspodem");
+            ModelState.AddModelError("password", "Senhas não correspodem");
+            return View();
+        }
         if(ModelState.IsValid){
         return RedirectToAction("SignUpSuccess", "Auth");
         }
