@@ -33,7 +33,7 @@ public class AuthController : Controller {
     }
      
     public IActionResult SignUp(){
-        return View();
+        return IsLogged();
     }
 
     [HttpPost]
