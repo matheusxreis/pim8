@@ -28,5 +28,9 @@ namespace pim8.Data {
 
         }
 
+        public UserEntity? getUserById(string? id){
+            return users.Find(x=> x.id == id);
+        }
+
     }
 }
