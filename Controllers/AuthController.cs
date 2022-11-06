@@ -21,9 +21,9 @@ public class AuthController : Controller {
     public IActionResult SignIn(AuthModel authModel){
 
         MockRepository repository = MockRepository.getInstance();
+
         UserEntity? user = repository.getUserByUsername(authModel.username);
-        Console.WriteLine("DAD0 DO LOGIN = ())()()====>"+user?.cpf);
-        if(user != null && user.password == authModel.password ){ 
+        if(user != null && user.password == authModel.password){ 
             Response.Cookies.Append("SESSION_UNIP_PIM8", user.id.ToString());
             return RedirectToAction("Index", "Home");
         }else{
@@ -57,13 +57,12 @@ public class AuthController : Controller {
         if(ModelState.IsValid){
         MockRepository repository = MockRepository.getInstance();
             UserEntity user = new UserEntity(
-                userModel.name, 
-                userModel.username, 
-                userModel.password, 
-                userModel.cpf,
-                userModel.phone
-            );
-            Console.WriteLine("DAD0 1 = ())()()====>"+user.cpf);
+                userModel.name ?? "gio", 
+                userModel.username ?? "gio", 
+                userModel.password ?? "gio", 
+                userModel.cpf ?? "",
+                userModel.phone ?? ""
+                );            
             repository.save(user);
 
         return RedirectToAction("SignUpSuccess", "Auth");

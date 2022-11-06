@@ -18,25 +18,13 @@ namespace pim8.Data {
 
 
         public void save(UserEntity user){
-           Console.WriteLine("DAD0 2 = ())()()====>"+user.cpf);
             this.users?.Add(user);
-             Console.WriteLine("----------------");
-            Console.WriteLine("SIZE 8=>D"+users?.Count().ToString());
-            Console.WriteLine("----------------");
+           
         }
 
         public UserEntity? getUserByUsername(string? username){
-            Console.WriteLine("COUNT="+users.Count);
-            Console.WriteLine("USERNAME="+username);
-            if(username != null){
-                            Console.WriteLine("ENTROOOOOOOOOOOOOOU");
-
-            UserEntity? u = users.Last();
-            if(u == null) { Console.WriteLine("U É NULL"); } else { Console.WriteLine("U nao eh null"); };
-             Console.WriteLine("U="+users[0]?.username);
-                return u;
-            }
-            return null;
+            UserEntity? u = users.Find(x=> x.username == username);
+            return u;
 
         }
 
