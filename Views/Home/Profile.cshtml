@@ -1,0 +1,18 @@
+@model pim8.Models.UserModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    
+    <h3>Nome: @ViewBag.name</h3>
+    <h3>Nome de usuário: @ViewBag.username</h3>
+    <h3>E-mail: @ViewBag.email</h3>
+    <h3>CPF: @ViewBag.cpf</h3>
+
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @using (Html.BeginForm("Profile", "Auth", "aaaaaaaaaaaaaaa", FormMethod.Delete)){
+    
+            <input type="submit" value="Deletar Conta"/>
+        }
+</div>
