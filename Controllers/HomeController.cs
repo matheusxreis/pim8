@@ -26,7 +26,7 @@ public class HomeController : Controller
         ViewData["username"] = user?.username;
         ViewData["name"] = user?.name;
         ViewData["cpf"] = user?.cpf;
-        ViewData["email"] = "email@email.com";
+        ViewData["email"] = user?.email;
 
         return View();
     }

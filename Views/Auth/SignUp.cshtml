@@ -27,6 +27,14 @@
 
             <div class="form-group">
             <div class="col-md-10">
+            @Html.LabelFor(m=> m.email)
+            @Html.TextBoxFor(m => m.email)  
+            @Html.ValidationMessageFor( m => m.email, "", new { @class="text-danger"})
+            </div>
+            </div>
+
+            <div class="form-group">
+            <div class="col-md-10">
             @Html.LabelFor(m=> m.cpf)
             @Html.TextBoxFor(m => m.cpf)  
             @Html.ValidationMessageFor( m => m.cpf, "", new { @class="text-danger"})

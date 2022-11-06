@@ -6,12 +6,14 @@ namespace pim8.Data {
         public UserEntity(
             string name,
             string username,
+            string email,
             string password, 
             string cpf, 
             string phone
         ){
             this.id = Guid.NewGuid().ToString();
             this.username = username;
+            this.email = email;
             this.name = name;
             this.password = password;
             this.cpf = cpf;
@@ -20,6 +22,9 @@ namespace pim8.Data {
         public string id { get; set; }
         public string? name { get; set; }
         public string? username { get; set; }
+
+        public string? email { get; set; }
+
         public string? password { get; set; }      
         public string? cpf { get; set; }
         public string? phone { get; set; }

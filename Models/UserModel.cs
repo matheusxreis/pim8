@@ -13,6 +13,10 @@ namespace pim8.Models {
         [Display(Name = "Nome de Usuário")]
         public string? username { get; set; }
 
+        [Required(ErrorMessage = "E-mail obrigatório")]
+        [Display(Name = "E-mail")]
+        public string? email { get; set; }
+
         [Required(ErrorMessage = "Senha obrigatória")]
         [Display(Name = "Senha")]
         [DataType(DataType.Password)]

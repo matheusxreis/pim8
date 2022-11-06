@@ -59,6 +59,7 @@ public class AuthController : Controller {
             UserEntity user = new UserEntity(
                 userModel.name ?? "gio", 
                 userModel.username ?? "gio", 
+                userModel.email ?? "email",
                 userModel.password ?? "gio", 
                 userModel.cpf ?? "",
                 userModel.phone ?? ""
