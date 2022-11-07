@@ -7,11 +7,13 @@ namespace pim8.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
 
-    public HomeController(ILogger<HomeController> logger)
+
+    private readonly iUserRepository _userRepository;
+
+    public HomeController(iUserRepository userRepository)
     {
-        _logger = logger;
+     _userRepository = userRepository;
     }
 
     private IActionResult IsLogged(){
@@ -21,8 +23,7 @@ public class HomeController : Controller
           return RedirectToAction("SignIn", "Auth");
         }
 
-        MockRepository repository = MockRepository.getInstance();
-        UserEntity? user = repository.getUserById(loggedIn);
+        UserEntity? user = _userRepository.getUserById(loggedIn);
 
 
         ViewData["username"] = user?.username ?? "";
@@ -30,7 +31,7 @@ public class HomeController : Controller
         ViewData["cpf"] = user?.cpf ?? "";
         ViewData["email"] = user?.email ?? "";
 
-        if(user?.name == null) { return RedirectToAction("SignOut", "Auth"); }
+       // if(user?.name == null) { return RedirectToAction("SignOut", "Auth"); }
         return View();
     }
     public IActionResult Index()

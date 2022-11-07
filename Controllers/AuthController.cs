@@ -5,6 +5,13 @@ using pim8.Data;
 namespace pim8.Controllers;
 public class AuthController : Controller
 {
+    
+    private readonly iUserRepository repository;
+   
+    public AuthController(iUserRepository repository){
+        this.repository = repository;
+    }
+   
     private IActionResult IsLogged()
     {
         string? loggedIn = Request.Cookies["SESSION_UNIP_PIM8"];
@@ -25,7 +32,6 @@ public class AuthController : Controller
     public IActionResult SignIn(AuthModel authModel)
     {
 
-        MockRepository repository = MockRepository.getInstance();
 
         UserEntity? user = repository.getUserByUsername(authModel.username);
         if (user != null && user.password == authModel.password)
@@ -69,7 +75,6 @@ public class AuthController : Controller
         }
         if (ModelState.IsValid)
         {
-            MockRepository repository = MockRepository.getInstance();
             UserEntity user = new UserEntity(
                 userModel.name ?? "gio",
                 userModel.username ?? "gio",
@@ -99,7 +104,6 @@ public class AuthController : Controller
         Console.WriteLine("====================");
         Console.WriteLine(email);
         Console.WriteLine("====================");
-        MockRepository repository = MockRepository.getInstance();
         repository.remove(email);
         return RedirectToAction("Index", "Home");
     }
