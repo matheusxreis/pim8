@@ -1,14 +1,23 @@
 using Microsoft.AspNetCore.Mvc;
 using pim8.Models;
 using pim8.Models.Database;
+using pim8.Controllers.iHelpers;
+
 namespace pim8.Controllers;
 public class AuthController : Controller
 {
     
     private readonly iUserRepository _userRepository;
+    private readonly iDecryptPassword _decrypt;
+    private readonly iEncryptPassword _encrypt;
    
-    public AuthController(iUserRepository userRepository){
+    public AuthController(
+        iUserRepository userRepository,
+        iDecryptPassword decrypt,
+        iEncryptPassword encrypt){
         _userRepository = userRepository;
+        _decrypt = decrypt;
+        _encrypt = encrypt;
     }
    
     private IActionResult IsLogged()
@@ -33,7 +42,10 @@ public class AuthController : Controller
 
 
         UserModel? user = _userRepository.getUserByUsername(authModel.username);
-        if (user != null && user.password == authModel.password)
+        if (
+            user != null && 
+            _decrypt.decrypt(user.password ?? "") == authModel.password 
+        )
         {
             Response.Cookies.Append("SESSION_UNIP_PIM8", user.id.ToString());
             return RedirectToAction("Index", "Home");
@@ -78,7 +90,7 @@ public class AuthController : Controller
                 userModel.name ?? "gio",
                 userModel.username ?? "gio",
                 userModel.email ?? "email",
-                userModel.password ?? "gio",
+                _encrypt.encrypt(userModel.password ?? ""),
                 userModel.cpf ?? "",
                 userModel.phone ?? ""
                 );
