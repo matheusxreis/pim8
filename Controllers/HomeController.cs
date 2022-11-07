@@ -31,7 +31,7 @@ public class HomeController : Controller
         ViewData["cpf"] = user?.cpf ?? "";
         ViewData["email"] = user?.email ?? "";
 
-       // if(user?.name == null) { return RedirectToAction("SignOut", "Auth"); }
+        if(user?.name == null) { return RedirectToAction("SignOut", "Auth"); }
         return View();
     }
     public IActionResult Index()
