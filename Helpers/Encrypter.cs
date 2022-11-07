@@ -1,17 +1,19 @@
 using pim8.Controllers.iHelpers;
-
+using BCrypt.Net;
 namespace pim8.Helpers
 {
 
-    public class Encrypter: iDecryptPassword, iEncryptPassword {
+    public class Encrypter: iComparePassword, iEncryptPassword {
 
         public string encrypt(string password){
-            return  password.Replace("1", "J");
+            string salt = BCrypt.Net.BCrypt.GenerateSalt();
+            return BCrypt.Net.BCrypt.HashPassword(password, salt);
+            
 
         }
-        public string decrypt(string password){
+        public Boolean compare(string password, string hash){
             
-            return  password.Replace("J", "1");
+            return BCrypt.Net.BCrypt.Verify(password, hash);
         }
 
     }
