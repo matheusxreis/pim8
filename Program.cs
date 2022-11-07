@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -8,6 +10,10 @@ builder.Services.AddAuthentication()
     .AddCookie();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddEntityFrameworkNpgsql()
+    .AddDbContext<pim8.Data.Context>(options => 
+    options.UseNpgsql("Host=localhost;Port=3333;Database=pim8;Username=postgres;Password=unip"));
 
 var app = builder.Build();
 
