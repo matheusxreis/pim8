@@ -1,6 +1,7 @@
-
+using System.ComponentModel.DataAnnotations.Schema;
 namespace pim8.Data {
 
+    [Table("users")]
     public class UserEntity 
     {
         public UserEntity(
@@ -19,23 +20,26 @@ namespace pim8.Data {
             this.cpf = cpf;
             this.phone = phone;
         }
+        [Column("id")]
         public string id { get; set; }
+        [Column("name")]
         public string? name { get; set; }
+        [Column("username")]
+
         public string? username { get; set; }
 
-        public string? email { get; set; }
+       [Column("email")]
+       public string? email { get; set; }
+
+       [Column("password")]
 
         public string? password { get; set; }      
+        [Column("cpf")]
+
         public string? cpf { get; set; }
+        [Column("phone")]
+
         public string? phone { get; set; }
-
-
-        public string getUsername() { 
-            if(this.username == null){
-                return "Não tem username"+this.name;
-            }
-            return "O nome de usuário é:"+this.username;
-         }
 
     }
 }
