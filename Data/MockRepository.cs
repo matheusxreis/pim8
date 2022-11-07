@@ -32,5 +32,11 @@ namespace pim8.Data {
             return users.Find(x=> x.id == id);
         }
 
+
+        public void remove(string? email){
+            UserEntity? u = users.Find(x=>x.email == email);
+            if(u != null) { users.Remove(u); }
+        }
+   
     }
 }

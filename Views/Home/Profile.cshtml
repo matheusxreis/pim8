@@ -11,7 +11,7 @@
     <h3>CPF: @ViewBag.cpf</h3>
 
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    @using (Html.BeginForm("Profile", "Auth", "aaaaaaaaaaaaaaa", FormMethod.Delete)){
+    @using (Html.BeginForm("DeleteProfile", "Auth", new { email = @ViewBag.email }, FormMethod.Post)){
     
             <input type="submit" value="Deletar Conta"/>
         }
