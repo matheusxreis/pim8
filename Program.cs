@@ -16,7 +16,7 @@ builder.Services.AddEntityFrameworkNpgsql()
     options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));
 builder.Services.AddScoped<pim8.Models.Database.iUserRepository, pim8.Models.Database.MockRepository>();
 builder.Services.AddScoped<pim8.Controllers.iHelpers.iEncryptPassword, pim8.Helpers.Encrypter>();
-builder.Services.AddScoped<pim8.Controllers.iHelpers.iDecryptPassword, pim8.Helpers.Encrypter>();
+builder.Services.AddScoped<pim8.Controllers.iHelpers.iComparePassword, pim8.Helpers.Encrypter>();
 
 
 

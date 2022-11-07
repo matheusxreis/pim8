@@ -8,15 +8,15 @@ public class AuthController : Controller
 {
     
     private readonly iUserRepository _userRepository;
-    private readonly iDecryptPassword _decrypt;
+    private readonly iComparePassword _compare;
     private readonly iEncryptPassword _encrypt;
    
     public AuthController(
         iUserRepository userRepository,
-        iDecryptPassword decrypt,
+        iComparePassword compare,
         iEncryptPassword encrypt){
         _userRepository = userRepository;
-        _decrypt = decrypt;
+        _compare = compare;
         _encrypt = encrypt;
     }
    
@@ -44,7 +44,7 @@ public class AuthController : Controller
         UserModel? user = _userRepository.getUserByUsername(authModel.username);
         if (
             user != null && 
-            _decrypt.decrypt(user.password ?? "") == authModel.password 
+            _compare.compare(authModel.password ?? "", user.password ?? "")
         )
         {
             Response.Cookies.Append("SESSION_UNIP_PIM8", user.id.ToString());
