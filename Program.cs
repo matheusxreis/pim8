@@ -14,6 +14,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddEntityFrameworkNpgsql()
     .AddDbContext<pim8.Data.Context>(options => 
     options.UseNpgsql("Host=localhost;Port=3333;Database=pim8;Username=postgres;Password=unip"));
+builder.Services.AddScoped<pim8.Data.iUserRepository, pim8.Data.MockRepository>();
+
 
 var app = builder.Build();
 
