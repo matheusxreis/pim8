@@ -35,6 +35,19 @@ public class HomeController : Controller
         return IsLogged();
     }
 
+    public IActionResult Profile()
+    {
+        return IsLogged();
+    }
+
+    [HttpDelete]
+     public IActionResult Profile(UserEntity user)
+    {
+        
+        return IsLogged();
+    }
+
+
     public IActionResult Privacy()
     {
         return View();
