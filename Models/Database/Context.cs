@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace pim8.Data
+namespace pim8.Models.Database
 {
     public class Context: DbContext
     {
@@ -10,6 +10,6 @@ namespace pim8.Data
         {
         }
 
-        public DbSet<UserEntity> users { get; set; }
+        public DbSet<UserModel> users { get; set; }
     }
 }

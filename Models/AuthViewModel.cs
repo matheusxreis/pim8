@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace pim8.Models {
 
-    public class AuthModel 
+    public class AuthViewModel 
     {
         [Required(ErrorMessage = "Informe um nome de usuário.")]
         [Display(Name = "Nome de usuário")]

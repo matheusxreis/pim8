@@ -1,5 +1,5 @@
 
-namespace pim8.Data {
+namespace pim8.Models.Database {
 
 
     public class MockRepository: iUserRepository {
@@ -9,29 +9,29 @@ namespace pim8.Data {
 
         private readonly Context _context;
 
-        public void save(UserEntity user){
+        public void save(UserModel user){
            
             _context.users.Add(user);
             _context.SaveChanges();
            
         }
 
-        public UserEntity? getUserByUsername(string? username){
+        public UserModel? getUserByUsername(string? username){
 
-            UserEntity? u = _context.users.FirstOrDefault(x=> x.username == username);
+            UserModel? u = _context.users.FirstOrDefault(x=> x.username == username);
             return u;
 
         }
 
-        public UserEntity? getUserById(string? id){
-            UserEntity? u = _context.users.FirstOrDefault(x=> x.id == id);
+        public UserModel? getUserById(string? id){
+            UserModel? u = _context.users.FirstOrDefault(x=> x.id == id);
              return u;
 
         }
 
 
         public void remove(string? email){
-            UserEntity? u = _context.users.FirstOrDefault(x=> x.email == email);
+            UserModel? u = _context.users.FirstOrDefault(x=> x.email == email);
             Console.WriteLine("++++++++++++++++++");
             Console.WriteLine("Ooooooooi"+email+u?.email);
             Console.WriteLine("++++++++++++++++++");

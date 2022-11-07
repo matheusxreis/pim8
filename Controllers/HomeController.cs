@@ -1,14 +1,12 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using pim8.Models;
-using pim8.Data;
+using pim8.Models.Database;
 
 namespace pim8.Controllers;
 
 public class HomeController : Controller
 {
-
-
     private readonly iUserRepository _userRepository;
 
     public HomeController(iUserRepository userRepository)
@@ -23,7 +21,7 @@ public class HomeController : Controller
           return RedirectToAction("SignIn", "Auth");
         }
 
-        UserEntity? user = _userRepository.getUserById(loggedIn);
+        UserModel? user = _userRepository.getUserById(loggedIn);
 
 
         ViewData["username"] = user?.username ?? "";

@@ -1,10 +1,11 @@
 using System.ComponentModel.DataAnnotations.Schema;
-namespace pim8.Data {
+namespace pim8.Models.Database
+ {
 
     [Table("users")]
-    public class UserEntity 
+    public class UserModel
     {
-        public UserEntity(
+        public UserModel(
             string name,
             string username,
             string email,

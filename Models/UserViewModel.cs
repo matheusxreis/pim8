@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace pim8.Models {
 
-    public class UserModel 
+    public class UserViewModel 
     {
         
         [Required(ErrorMessage = "Nome obrigatório")]

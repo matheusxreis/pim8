@@ -1,15 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using pim8.Models;
-using Microsoft.AspNetCore;
-using pim8.Data;
+using pim8.Models.Database;
 namespace pim8.Controllers;
 public class AuthController : Controller
 {
     
-    private readonly iUserRepository repository;
+    private readonly iUserRepository _userRepository;
    
-    public AuthController(iUserRepository repository){
-        this.repository = repository;
+    public AuthController(iUserRepository userRepository){
+        _userRepository = userRepository;
     }
    
     private IActionResult IsLogged()
@@ -29,11 +28,11 @@ public class AuthController : Controller
 
 
     [HttpPost]
-    public IActionResult SignIn(AuthModel authModel)
+    public IActionResult SignIn(AuthViewModel authModel)
     {
 
 
-        UserEntity? user = repository.getUserByUsername(authModel.username);
+        UserModel? user = _userRepository.getUserByUsername(authModel.username);
         if (user != null && user.password == authModel.password)
         {
             Response.Cookies.Append("SESSION_UNIP_PIM8", user.id.ToString());
@@ -59,7 +58,7 @@ public class AuthController : Controller
     }
 
     [HttpPost]
-    public IActionResult SignUp(UserModel userModel)
+    public IActionResult SignUp(UserViewModel userModel)
     {
 
         if (userModel.username == "adm")
@@ -75,7 +74,7 @@ public class AuthController : Controller
         }
         if (ModelState.IsValid)
         {
-            UserEntity user = new UserEntity(
+            UserModel user = new UserModel(
                 userModel.name ?? "gio",
                 userModel.username ?? "gio",
                 userModel.email ?? "email",
@@ -83,7 +82,7 @@ public class AuthController : Controller
                 userModel.cpf ?? "",
                 userModel.phone ?? ""
                 );
-            repository.save(user);
+            _userRepository.save(user);
 
             return RedirectToAction("SignUpSuccess", "Auth");
         }
@@ -101,10 +100,7 @@ public class AuthController : Controller
     {
 
         string email = Request.Query["email"].ToString();
-        Console.WriteLine("====================");
-        Console.WriteLine(email);
-        Console.WriteLine("====================");
-        repository.remove(email);
+        _userRepository.remove(email);
         return RedirectToAction("Index", "Home");
     }
 }

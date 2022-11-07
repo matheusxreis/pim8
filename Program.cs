@@ -12,9 +12,9 @@ builder.Services.AddAuthentication()
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddEntityFrameworkNpgsql()
-    .AddDbContext<pim8.Data.Context>(options => 
+    .AddDbContext<pim8.Models.Database.Context>(options => 
     options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));
-builder.Services.AddScoped<pim8.Data.iUserRepository, pim8.Data.MockRepository>();
+builder.Services.AddScoped<pim8.Models.Database.iUserRepository, pim8.Models.Database.MockRepository>();
 
 
 var app = builder.Build();
