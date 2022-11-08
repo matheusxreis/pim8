@@ -28,7 +28,7 @@ namespace pim8.Services
                 $"{_config["MailService:email"]}", 
                 toAddress,
                 "Não Responda",
-                $"https://localhost:7186/confirm/{confirmationToken}"
+                $"Você se cadastrou no Projeto Integrado Multidisciplinar 8. Por favor acesse o link: https://localhost:7186/Auth/ConfirmEmail/{confirmationToken} para confirmar a conta. Caso tenha sido um engano basta ignorar."
                 );
                 
             }catch(SmtpException e) {
