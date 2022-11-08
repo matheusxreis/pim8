@@ -12,16 +12,19 @@ public class AuthController : Controller
     private readonly iComparePassword _compare;
     private readonly iEncryptPassword _encrypt;
     private readonly iSendMail _sendMail;
+    private readonly iGenerateEmailToken _generateEmailToken;
    
     public AuthController(
         iUserRepository userRepository,
         iComparePassword compare,
         iEncryptPassword encrypt,
-        iSendMail sendMail){
+        iSendMail sendMail,
+        iGenerateEmailToken generateEmailToken){
         _userRepository = userRepository;
         _compare = compare;
         _encrypt = encrypt;
         _sendMail = sendMail;
+        _generateEmailToken = generateEmailToken;
     }
    
     private IActionResult IsLogged()
@@ -91,17 +94,18 @@ public class AuthController : Controller
         }
         if (ModelState.IsValid)
         {
+            string confirmationToken = _generateEmailToken.generate();
             UserModel user = new UserModel(
                 userModel.name ?? "gio",
                 userModel.username ?? "gio",
                 userModel.email ?? "email",
                 _encrypt.encrypt(userModel.password ?? ""),
                 userModel.cpf ?? "",
-                userModel.phone ?? ""
+                userModel.phone ?? "",
+                confirmationToken
                 );
             _userRepository.save(user);
-
-            _sendMail.send(userModel.email ?? "", "9892892839283982");
+            _sendMail.send(userModel.email ?? "", confirmationToken);
 
             return RedirectToAction("SignUpSuccess", "Auth");
         }

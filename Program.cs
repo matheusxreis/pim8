@@ -18,7 +18,7 @@ builder.Services.AddScoped<pim8.Models.Database.iUserRepository, pim8.Models.Dat
 builder.Services.AddScoped<pim8.Controllers.iHelpers.iEncryptPassword, pim8.Helpers.Encrypter>();
 builder.Services.AddScoped<pim8.Controllers.iHelpers.iComparePassword, pim8.Helpers.Encrypter>();
 builder.Services.AddScoped<pim8.Controllers.iHelpers.iSendMail, pim8.Services.MailService>();
-
+builder.Services.AddScoped<pim8.Controllers.iHelpers.iGenerateEmailToken, pim8.Helpers.GenerateToken>();
 
 
 var app = builder.Build();
