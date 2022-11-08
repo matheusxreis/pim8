@@ -11,7 +11,8 @@ namespace pim8.Models.Database
             string email,
             string password, 
             string cpf, 
-            string phone
+            string phone,
+            string confirmationToken
         ){
             this.id = Guid.NewGuid().ToString();
             this.username = username;
@@ -20,6 +21,8 @@ namespace pim8.Models.Database
             this.password = password;
             this.cpf = cpf;
             this.phone = phone;
+            this.confirmationToken = confirmationToken;
+            this.active = false;
         }
         [Column("id")]
         public string id { get; set; }
@@ -41,6 +44,12 @@ namespace pim8.Models.Database
         [Column("phone")]
 
         public string? phone { get; set; }
+        [Column("confirmation_token")]
+
+        public string? confirmationToken { get; set; }
+        [Column("active")]
+
+        public Boolean? active { get; set; }
 
     }
 }
