@@ -17,6 +17,7 @@ builder.Services.AddEntityFrameworkNpgsql()
 builder.Services.AddScoped<pim8.Models.Database.iUserRepository, pim8.Models.Database.MockRepository>();
 builder.Services.AddScoped<pim8.Controllers.iHelpers.iEncryptPassword, pim8.Helpers.Encrypter>();
 builder.Services.AddScoped<pim8.Controllers.iHelpers.iComparePassword, pim8.Helpers.Encrypter>();
+builder.Services.AddScoped<pim8.Controllers.iHelpers.iSendMail, pim8.Services.MailService>();
 
 
 
