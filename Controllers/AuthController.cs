@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using pim8.Models;
 using pim8.Models.Database;
 using pim8.Controllers.iHelpers;
+using pim8.Services;
 
 namespace pim8.Controllers;
 public class AuthController : Controller
@@ -10,14 +11,17 @@ public class AuthController : Controller
     private readonly iUserRepository _userRepository;
     private readonly iComparePassword _compare;
     private readonly iEncryptPassword _encrypt;
+    private readonly iSendMail _sendMail;
    
     public AuthController(
         iUserRepository userRepository,
         iComparePassword compare,
-        iEncryptPassword encrypt){
+        iEncryptPassword encrypt,
+        iSendMail sendMail){
         _userRepository = userRepository;
         _compare = compare;
         _encrypt = encrypt;
+        _sendMail = sendMail;
     }
    
     private IActionResult IsLogged()
@@ -39,8 +43,9 @@ public class AuthController : Controller
     [HttpPost]
     public IActionResult SignIn(AuthViewModel authModel)
     {
+        
 
-
+        
         UserModel? user = _userRepository.getUserByUsername(authModel.username);
         if (
             user != null && 
@@ -95,6 +100,8 @@ public class AuthController : Controller
                 userModel.phone ?? ""
                 );
             _userRepository.save(user);
+
+            _sendMail.send(userModel.email ?? "", "9892892839283982");
 
             return RedirectToAction("SignUpSuccess", "Auth");
         }
