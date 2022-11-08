@@ -28,27 +28,14 @@ public class AuthController : Controller
         _generateEmailToken = generateEmailToken;
     }
 
-    private IActionResult IsLogged()
-    {
-        string? loggedIn = Request.Cookies["SESSION_UNIP_PIM8"];
-        if (loggedIn != null)
-        {
-            return RedirectToAction("Index", "Home");
-        }
-        return View();
-    }
     public IActionResult SignIn()
     {
-        return IsLogged();
+        return View();
     }
-
-
 
     [HttpPost]
     public IActionResult SignIn(AuthViewModel authModel)
     {
-
-
 
         UserModel? user = _userRepository.getUserByUsername(authModel.username);
         if (
@@ -86,7 +73,7 @@ public class AuthController : Controller
 
     public IActionResult SignUp()
     {
-        return IsLogged();
+        return View();
     }
 
     [HttpPost]
