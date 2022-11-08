@@ -13,6 +13,14 @@ namespace pim8.Services
             _next = next;
 
         }
+
+        private Boolean isEmailConfirmation(string path){
+            string[] dividedPath = path.Split("/");
+            if(dividedPath.Length >= 3){
+               if(dividedPath[2] == "ConfirmEmail"){ return true; };
+               }
+            return false;
+        }
         public async Task InvokeAsync(
             HttpContext context,
             iUserRepository userRepository
@@ -22,8 +30,11 @@ namespace pim8.Services
 
             string path = context.Request.Path;
             Boolean isAuthUrl = authUrls.Any(x => x == path);
+
+            if(isEmailConfirmation(path)) { await _next(context); return; }
             if (isAuthUrl)
             {
+                if(authCookie != null) { context.Response.Redirect("/Home/Index"); return; }
                 await _next(context);
                 return;
             }
@@ -32,8 +43,9 @@ namespace pim8.Services
                 context.Response.Redirect("/Auth/SignIn"); return;
             } else {
                 UserModel? user = userRepository.getUserById(authCookie);
-                if(user?.name == null) { context.Response.Redirect("/Auth/SignIn"); return; }
-            }
+                if(user?.name == null) { context.Response.Redirect("/Auth/SignIn"); }
+              
+           }
 
             await _next(context);
         }
