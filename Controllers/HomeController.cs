@@ -14,34 +14,39 @@ public class HomeController : Controller
      _userRepository = userRepository;
     }
 
-    private IActionResult IsLogged(){
-        string? loggedIn = Request.Cookies["SESSION_UNIP_PIM8"];
+   
+    private UserModel? getUserFromCookies(){
+        string? userId = Request.Cookies["SESSION_UNIP_PIM8"];
+         UserModel? user = _userRepository.getUserById(userId);
+         return user;
+    }
 
-        if(loggedIn==null) {
-          return RedirectToAction("SignIn", "Auth");
-        }
-
-        UserModel? user = _userRepository.getUserById(loggedIn);
-
+    public IActionResult Index()
+    {              
+        UserModel? user = getUserFromCookies();
 
         ViewData["username"] = user?.username ?? "";
         ViewData["name"] = user?.name ?? "";
-        ViewData["cpf"] = user?.cpf ?? "";
         ViewData["email"] = user?.email ?? "";
 
-        if(user?.name == null) { return RedirectToAction("SignOut", "Auth"); }
         return View();
-    }
-    public IActionResult Index()
-    {               
-        return IsLogged();
     }
 
     public IActionResult Profile()
     {
-        return IsLogged();
+        UserModel? user = getUserFromCookies();
+
+        ViewData["username"] = user?.username ?? "";
+        ViewData["name"] = user?.name ?? "";
+        ViewData["email"] = user?.email ?? "";
+        ViewData["cpf"] = user?.cpf ?? "";
+
+        return View();
     }
 
+    public IActionResult Default(){
+        return RedirectToAction("Index", "Home");
+    }
     public IActionResult Privacy()
     {
         return View();
