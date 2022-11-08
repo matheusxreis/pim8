@@ -52,15 +52,23 @@ public class AuthController : Controller
         UserModel? user = _userRepository.getUserByUsername(authModel.username);
         if (
             user != null && 
-            _compare.compare(authModel.password ?? "", user.password ?? "")
+            _compare.compare(authModel.password ?? "", user.password ?? "") &&
+            user.active == true
         )
         {
+            
+
             Response.Cookies.Append("SESSION_UNIP_PIM8", user.id.ToString());
             return RedirectToAction("Index", "Home");
         }
         else
         {
-            ModelState.AddModelError("", "Usuário ou senha incorretos");
+            
+             if(user?.active == false) {
+              ModelState.AddModelError("", "Necessário confirmação de e-mail");
+            }else{
+                ModelState.AddModelError("", "Usuário ou senha incorretos");
+            }
         }
 
         return View();
