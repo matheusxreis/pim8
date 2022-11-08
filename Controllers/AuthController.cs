@@ -7,26 +7,27 @@ using pim8.Services;
 namespace pim8.Controllers;
 public class AuthController : Controller
 {
-    
+
     private readonly iUserRepository _userRepository;
     private readonly iComparePassword _compare;
     private readonly iEncryptPassword _encrypt;
     private readonly iSendMail _sendMail;
     private readonly iGenerateEmailToken _generateEmailToken;
-   
+
     public AuthController(
         iUserRepository userRepository,
         iComparePassword compare,
         iEncryptPassword encrypt,
         iSendMail sendMail,
-        iGenerateEmailToken generateEmailToken){
+        iGenerateEmailToken generateEmailToken)
+    {
         _userRepository = userRepository;
         _compare = compare;
         _encrypt = encrypt;
         _sendMail = sendMail;
         _generateEmailToken = generateEmailToken;
     }
-   
+
     private IActionResult IsLogged()
     {
         string? loggedIn = Request.Cookies["SESSION_UNIP_PIM8"];
@@ -46,27 +47,30 @@ public class AuthController : Controller
     [HttpPost]
     public IActionResult SignIn(AuthViewModel authModel)
     {
-        
 
-        
+
+
         UserModel? user = _userRepository.getUserByUsername(authModel.username);
         if (
-            user != null && 
+            user != null &&
             _compare.compare(authModel.password ?? "", user.password ?? "") &&
             user.active == true
         )
         {
-            
+
 
             Response.Cookies.Append("SESSION_UNIP_PIM8", user.id.ToString());
             return RedirectToAction("Index", "Home");
         }
         else
         {
-            
-             if(user?.active == false) {
-              ModelState.AddModelError("", "Necessário confirmação de e-mail");
-            }else{
+
+            if (user?.active == false)
+            {
+                ModelState.AddModelError("", "Necessário confirmação de e-mail");
+            }
+            else
+            {
                 ModelState.AddModelError("", "Usuário ou senha incorretos");
             }
         }
@@ -120,15 +124,21 @@ public class AuthController : Controller
             _userRepository.save(user);
             _sendMail.send(userModel.email ?? "", confirmationToken);
 
-            return RedirectToAction("SignUpSuccess", "Auth");
+            return RedirectToAction("SignUpSuccess", "Auth", new { email = userModel.email });
         }
         return View();
     }
 
+    [Route("Auth/SignUpSuccess")]
     public IActionResult SignUpSuccess()
     {
-
-        return View();
+        string email = Request.Query["email"];
+        UserModel? user = _userRepository.getUserByEmail(email);
+        if (user != null && user.active == false)
+        {
+            return View();
+        }
+        return RedirectToAction("SignIn", "Auth");
     }
 
     [HttpPost]
@@ -141,7 +151,8 @@ public class AuthController : Controller
     }
 
     [Route("Auth/ConfirmEmail/{token?}")]
-    public IActionResult ConfirmEmail(string? token){
+    public IActionResult ConfirmEmail(string? token)
+    {
         _userRepository.activeAccount(token ?? "");
         return RedirectToAction("Index", "Home");
     }
