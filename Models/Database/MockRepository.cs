@@ -40,6 +40,16 @@ namespace pim8.Models.Database {
             _context.SaveChanges();
 
         }
-   
+
+        public void activeAccount(string token){
+          UserModel? u = _context.users.FirstOrDefault(x=> x.confirmationToken == token);
+          if(u != null){
+            u.active = true;
+            _context.users.Update(u);
+            _context.SaveChanges();
+          }
+
+
+        }
     }
 }

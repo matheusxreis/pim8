@@ -6,6 +6,7 @@ namespace pim8.Models.Database
         UserModel? getUserByUsername(string? username);
         UserModel? getUserById(string? id);
         void remove(string? email);
+        void activeAccount(string token);
 
 
     }
