@@ -126,4 +126,11 @@ public class AuthController : Controller
         _userRepository.remove(email);
         return RedirectToAction("Index", "Home");
     }
+
+    [Route("Auth/ConfirmEmail/{token?}")]
+    public IActionResult ConfirmEmail(string? token){
+        _userRepository.activeAccount(token ?? "");
+        return RedirectToAction("Index", "Home");
+    }
+
 }
