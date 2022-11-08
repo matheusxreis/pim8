@@ -11,8 +11,34 @@
     <h3>CPF: @ViewBag.cpf</h3>
 
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+   
+    <form
+    method="post"
+    enctype="string"
+    asp-controller="User"
+    asp-action="UpdatePhoto">
+        <label for="profilePhoto">Foto de Perfil</label>
+        <input
+        id="profilePhoto"
+        type="file"
+         />
+        <input
+        type="submit"
+        />
+    </form>
+    @using (Html.BeginForm(""))
     @using (Html.BeginForm("DeleteProfile", "Auth", new { email = @ViewBag.email }, FormMethod.Post)){
-    
+
             <input type="submit" value="Deletar Conta"/>
         }
+
+
+        <script>
+            const filePhoto = document.querySelector("#profilePhoto");
+            filePhoto.addEventListener("change", ()=>{
+                console.log('maccarao');
+                filePhoto.value=["macacarrao"]
+            })
+        </script>
+
 </div>
