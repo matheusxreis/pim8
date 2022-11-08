@@ -89,9 +89,14 @@ public class AuthController : Controller
     public IActionResult SignUp(UserViewModel userModel)
     {
 
-        if (userModel.username == "adm")
+        if (_userRepository.getUserByUsername(userModel.username) != null)
         {
             ModelState.AddModelError("username", "Nome de usuário existente.");
+            return View();
+        }
+        if (_userRepository.getUserByEmail(userModel.email) != null)
+        {
+            ModelState.AddModelError("email", "Email existente.");
             return View();
         }
         if (userModel.password != userModel.confirmation_password)

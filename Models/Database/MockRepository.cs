@@ -22,6 +22,12 @@ namespace pim8.Models.Database {
             return u;
 
         }
+        public UserModel? getUserByEmail(string? email){
+
+        UserModel? u = _context.users.FirstOrDefault(x=> x.email == email);
+        return u;
+
+        }
 
         public UserModel? getUserById(string? id){
             UserModel? u = _context.users.FirstOrDefault(x=> x.id == id);
