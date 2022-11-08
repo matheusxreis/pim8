@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using pim8.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,7 @@ builder.Services.AddScoped<pim8.Controllers.iHelpers.iGenerateEmailToken, pim8.H
 
 
 var app = builder.Build();
+app.UseAuth(); // My middleware; =D
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
