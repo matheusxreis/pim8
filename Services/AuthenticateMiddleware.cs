@@ -40,7 +40,8 @@ namespace pim8.Services
             }
             if (authCookie == null)
             {
-                context.Response.Redirect("/Auth/SignIn"); return;
+             
+                context.Response.Redirect("/Auth/SignIn"); 
             } else {
                 UserModel? user = userRepository.getUserById(authCookie);
                 if(user?.name == null) { context.Response.Redirect("/Auth/SignIn"); }
