@@ -9,11 +9,13 @@
     <h3>Nome de usuário: @ViewBag.username</h3>
     <h3>E-mail: @ViewBag.email</h3>
     <h3>CPF: @ViewBag.cpf</h3>
+    <h3> PHOTO:@ViewBag.photo </h3>
 
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 
     <div class="profile-info-container">
         <img id="profileImg" src="@ViewBag.photo" class="avatar" />
+
         <label for="profilePhoto">Foto de Perfil</label>
         <input id="profilePhoto" type="file" />
         <p> Se tiver certeza, confirme </p>
@@ -21,7 +23,6 @@
     </div>
 
 
-    @using (Html.BeginForm(""))
     @using (Html.BeginForm("DeleteProfile", "Auth", new { email = @ViewBag.email }, FormMethod.Post))
     {
 
@@ -62,11 +63,11 @@
                 type: "POST",
                 data: { file: base64 },
                 dataType: "json",
-                success: function (result) { 
-                    if(result.status==="success"){
+                success: function (result) {
+                    if (result.status === "success") {
                         location.reload();
                     }
-                 },
+                },
                 error: function (err) { console.log(err) }
             })
 
@@ -74,6 +75,15 @@
 
         })
 
+        $(document).ready( () => {
+            
+            const src = $("#profileImg").attr("src");
+            if(!src) { 
+                $("#profileImg").attr("src", "/img/avatar.png");
+            }else{
+                console.log("top, tem")
+                }
+        })
     </script>
     }
 
