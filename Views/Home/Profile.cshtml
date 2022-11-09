@@ -4,41 +4,50 @@
 }
 
 <div class="text-center">
-    
+
     <h3>Nome: @ViewBag.name</h3>
     <h3>Nome de usuário: @ViewBag.username</h3>
     <h3>E-mail: @ViewBag.email</h3>
     <h3>CPF: @ViewBag.cpf</h3>
 
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-   
-    <form
-    method="post"
-    enctype="string"
-    asp-controller="User"
-    asp-action="UpdatePhoto">
-        <label for="profilePhoto">Foto de Perfil</label>
-        <input
-        id="profilePhoto"
-        type="file"
-         />
-        <input
-        type="submit"
-        />
-    </form>
+
+    <label for="profilePhoto">Foto de Perfil</label>
+    <input id="profilePhoto" type="file" />
+    <button id="btnUpload"> cldick me </button>
+
     @using (Html.BeginForm(""))
-    @using (Html.BeginForm("DeleteProfile", "Auth", new { email = @ViewBag.email }, FormMethod.Post)){
+    @using (Html.BeginForm("DeleteProfile", "Auth", new { email = @ViewBag.email }, FormMethod.Post))
+    {
 
-            <input type="submit" value="Deletar Conta"/>
-        }
+        <input type="submit" value="Deletar Conta" />
+    }
 
 
-        <script>
-            const filePhoto = document.querySelector("#profilePhoto");
-            filePhoto.addEventListener("change", ()=>{
-                console.log('maccarao');
-                filePhoto.value=["macacarrao"]
+    @section Scripts {
+    <script>
+        let base64;
+        const toBase64 = file => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result)
+        })
+        $("#profilePhoto").on("change", async (e) => {
+            console.log(e.target.files);
+            base64 = await toBase64(e.target.files[0]);            
+        })
+        $("#btnUpload").on("click", () => {
+            console.log("oooi");
+            $.ajax({
+                url: "@Url.Action("UpdatePhoto","User")",
+                type: "POST",
+                data: { file: base64 },
+                dataType: "json",
+                success: function (r) { console.log(r) },
+                error: function (err) { console.log(err) }
             })
-        </script>
+        })
+    </script>
+    }
 
 </div>
