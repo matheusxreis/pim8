@@ -14,7 +14,9 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 
     <div class="profile-info-container">
+        <div class="avatar-container">
         <img id="profileImg" src="@ViewBag.photo" class="avatar" />
+        </div>
 
         <label for="profilePhoto">Foto de Perfil</label>
         <input id="profilePhoto" type="file" />
@@ -75,14 +77,16 @@
 
         })
 
-        $(document).ready( () => {
-            
+        $(document).ready(() => {
+
             const src = $("#profileImg").attr("src");
-            if(!src) { 
+            if (!src) {
                 $("#profileImg").attr("src", "/img/avatar.png");
-            }else{
+                console.log("nao tem nada")
+
+            } else {
                 console.log("top, tem")
-                }
+            }
         })
     </script>
     }
