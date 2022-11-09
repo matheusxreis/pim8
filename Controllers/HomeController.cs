@@ -40,6 +40,7 @@ public class HomeController : Controller
         ViewData["name"] = user?.name ?? "";
         ViewData["email"] = user?.email ?? "";
         ViewData["cpf"] = user?.cpf ?? "";
+        ViewData["photo"] = user?.photo ?? "~/img/avatar.png";
 
         return View();
     }
