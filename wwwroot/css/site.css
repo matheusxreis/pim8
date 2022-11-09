@@ -16,3 +16,22 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+
+.avatar {
+  width:200px;
+  height:200px;
+  border-radius:200px;
+  box-shadow: 1px 1px 5px 1px #888888;
+
+}
+
+.profile-info-container {
+  display:flex;
+  flex-direction:column;
+  width:400px;
+  margin:0 auto; 
+  align-items:center;
+  justify-content:space-around
+
+}
