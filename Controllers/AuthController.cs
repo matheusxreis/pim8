@@ -134,7 +134,7 @@ public class AuthController : Controller
 
         string email = Request.Query["email"].ToString();
         _userRepository.remove(email);
-        return RedirectToAction("Index", "Home");
+        return RedirectToAction("SignOut", "Auth");
     }
 
     [Route("Auth/ConfirmEmail/{token?}")]
