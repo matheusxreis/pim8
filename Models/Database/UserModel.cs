@@ -51,5 +51,9 @@ namespace pim8.Models.Database
 
         public Boolean? active { get; set; }
 
+        [Column("photo")]
+
+        public string? photo { get; set; }
+
     }
 }
