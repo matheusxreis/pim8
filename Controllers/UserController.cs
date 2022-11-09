@@ -22,12 +22,12 @@ namespace pim8.Controllers
             if (file != null)
             {
                 string? id = Request.Cookies["SESSION_UNIP_PIM8"];
-                _userRepository.updatePhoto(file, id ?? "");           
-                
-             }
-            
+                _userRepository.updatePhoto(file, id ?? "");
 
-            return RedirectToAction("Profile", "Home");
+            }
+
+
+            return Json(new { status = "success" });
         }
     }
 
