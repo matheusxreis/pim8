@@ -12,9 +12,17 @@
 
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 
-    <label for="profilePhoto">Foto de Perfil</label>
-    <input id="profilePhoto" type="file" />
-    <button id="btnUpload"> cldick me </button>
+    <div style="display:flex;flex-direction:column;width:400px;height:300px;margin:0 auto; align-items:center; justiy-content:space-around">
+        <img 
+        id="profileImg"
+        src="~/img/avatar.png"
+        width="100px" height="100px" radius="100px"/>
+         <label for="profilePhoto">Foto de Perfil</label>
+        <input id="profilePhoto" type="file" />
+        <p> Se tiver certeza, confirme </p>
+        <button id="btnUpload"> Confirmar </button>  
+    </div>  
+  
 
     @using (Html.BeginForm(""))
     @using (Html.BeginForm("DeleteProfile", "Auth", new { email = @ViewBag.email }, FormMethod.Post))
@@ -27,26 +35,44 @@
     @section Scripts {
     <script>
         let base64;
+        const acceptTypes = ["image/png", "image/jpeg", "image/jpg"];
+
+        const getMimeType = base64 => base64.split(";")[0].split(":")[1];
         const toBase64 = file => new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = () => resolve(reader.result)
         })
+        const isFileValid = mimeType => acceptTypes.some(x=>x === mimeType);
+
         $("#profilePhoto").on("change", async (e) => {
             console.log(e.target.files);
-            base64 = await toBase64(e.target.files[0]);            
+            base64 = await toBase64(e.target.files[0]);      
+            const mime = getMimeType(base64);
+            if(isFileValid(mime)) {
+                $("#profileImg").attr("src", base64);   
+            }else {
+                alert("Tipo de arquivo não aceito.")
+            }
         })
         $("#btnUpload").on("click", () => {
-            console.log("oooi");
-            $.ajax({
-                url: "@Url.Action("UpdatePhoto","User")",
-                type: "POST",
-                data: { file: base64 },
-                dataType: "json",
-                success: function (r) { console.log(r) },
-                error: function (err) { console.log(err) }
-            })
+            if(!base64) { return alert("Selecione uma imagem png ou jpeg.") }
+            const mime = getMimeType(base64);
+            if(!isFileValid(mime)){ return alert("Selecione uma imagem png ou jpeg.") }
+
+                $.ajax({
+                    url: "@Url.Action("UpdatePhoto","User")",
+                    type: "POST",
+                    data: { file: base64 },
+                    dataType: "json",
+                    success: function (r) { console.log(r) },
+                    error: function (err) { console.log(err) }
+                })
+            
+                
+            
         })
+        
     </script>
     }
 
