@@ -55,7 +55,15 @@ namespace pim8.Models.Database {
             _context.SaveChanges();
           }
 
-
         }
+
+          public void updatePhoto(string photo, string id){
+            UserModel? u = _context.users.FirstOrDefault(x=> x.id == id);
+            if(u != null){
+                u.photo = photo;
+                _context.users.Update(u);
+                _context.SaveChanges();
+            }
+         }
     }
 }
