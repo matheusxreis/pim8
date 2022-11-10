@@ -5,25 +5,79 @@
 
 <div class="text-center">
 
-    <h3>Nome: @ViewBag.name</h3>
-    <h3>Nome de usuário: @ViewBag.username</h3>
-    <h3>E-mail: @ViewBag.email</h3>
-    <h3>CPF: @ViewBag.cpf</h3>
-    <h3> PHOTO:@ViewBag.photo </h3>
+  
 
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 
+    <div class="container-default">
     <div class="profile-info-container">
+
+        <div class="profile-photo-container">
         <div class="avatar-container">
         <img id="profileImg" src="@ViewBag.photo" class="avatar" />
         </div>
+        <input 
+        class="form-control my-input"
+        id="profilePhoto" 
+        type="file" />
+        </div>
+        
+        <div class="profile-data-container">
 
-        <label for="profilePhoto">Foto de Perfil</label>
-        <input id="profilePhoto" type="file" />
-        <p> Se tiver certeza, confirme </p>
-        <button id="btnUpload"> Confirmar </button>
+            @* <label for="name-input">Seu nome: <label> *@
+            <label for="nameInput">Nome: </label>
+            <input 
+            class="form-control my-input"
+            id="nameInput"
+            placeholder="Nome"
+            value="@ViewBag.name"
+            readonly
+            />
+           <label for="usernameInput">Nome de usuário: </label>
+            <input 
+            class="form-control my-input"
+            id="usernameInput"
+            placeholder="Nome de usuário"
+            value="@ViewBag.username"
+            readonly
+            />
+            <label for="emailInput">Email: </label>
+            <input 
+            class="form-control my-input"
+            id="emailInput"
+            placeholder="E-mail"
+            value="@ViewBag.email"
+            readonly
+            />
+            <label for="cpfInput">CPF: </label>
+            <input 
+            class="form-control my-input"
+            id="cpfInput"
+            placeholder="CPF"
+            value="@ViewBag.cpf"
+            readonly
+            />
+           
+          
+             
+        </div>
+
+         </div>
+         <div class="button-container">
+             <button type="button" 
+            class="btn btn-outline-danger">
+            Deletar Conta
+            </button>
+            <button type="button" 
+            id="btnUpload"
+            disabled
+            class="btn btn-outline-primary">
+            Confirmar
+            </button>
+         </div>
+           
+
     </div>
-
 
     @using (Html.BeginForm("DeleteProfile", "Auth", new { email = @ViewBag.email }, FormMethod.Post))
     {
@@ -31,12 +85,15 @@
         <input type="submit" value="Deletar Conta" />
     }
 
-
+   
     @section Scripts {
     <script>
         let base64;
         const acceptTypes = ["image/png", "image/jpeg", "image/jpg"];
+        let changePhoto = false;
+        let changeData = false;
 
+        const enableButton = () =>  $("#btnUpload").attr('disabled', false);
         const getMimeType = base64 => base64.split(";")[0].split(":")[1];
         const toBase64 = file => new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -46,6 +103,8 @@
         const isFileValid = mimeType => acceptTypes.some(x => x === mimeType);
 
         $("#profilePhoto").on("change", async (e) => {
+            enableButton();
+            changePhoto = true;
             console.log(e.target.files);
             base64 = await toBase64(e.target.files[0]);
             const mime = getMimeType(base64);
@@ -56,6 +115,7 @@
             }
         })
         $("#btnUpload").on("click", () => {
+            if(!changePhoto && changeData) { return alert("Dados alterados.") }
             if (!base64) { return alert("Selecione uma imagem png ou jpeg.") }
             const mime = getMimeType(base64);
             if (!isFileValid(mime)) { return alert("Selecione uma imagem png ou jpeg.") }
@@ -75,6 +135,19 @@
 
 
 
+        })
+
+        $("#nameInput").on("dblclick", (e)=> {
+           $("#nameInput").attr("readonly", false);
+        })
+        $("#usernameInput").on("dblclick", (e)=> {
+           $("#usernameInput").attr("readonly", false);
+        })
+        $("#emailInput").on("dblclick", (e)=> {
+           alert("No momento ainda não é possível alterar o e-mail.")
+        })
+        $("#cpfInput").on("dblclick", (e)=> {
+           alert("Não é possível alterar o CPF.")
         })
 
         $(document).ready(() => {
