@@ -7,7 +7,6 @@
 
   
 
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 
     <div class="container-default">
     <div class="profile-info-container">
@@ -26,6 +25,7 @@
 
             @* <label for="name-input">Seu nome: <label> *@
             <label for="nameInput">Nome: </label>
+           
             <input 
             class="form-control my-input"
             id="nameInput"
@@ -75,8 +75,6 @@
             Confirmar
             </button>
          </div>
-           
-
     </div>
 
     @using (Html.BeginForm("DeleteProfile", "Auth", new { email = @ViewBag.email }, FormMethod.Post))
