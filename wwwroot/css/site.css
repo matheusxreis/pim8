@@ -8,6 +8,9 @@ html {
   }
 }
 
+body {
+  background:#f4f4f4;
+}
 html {
   position: relative;
   min-height: 100%;
@@ -24,6 +27,7 @@ body {
   border-radius:7px;
   box-shadow: 1px 1px 5px 1px #888888;
   max-width:100%;
+  background-color: #fff;
 
 }
 
@@ -102,17 +106,12 @@ body {
 }
 
 .my-input {
-  width:300px;
+  width:200px;
   max-width:100%;
   margin-top:5px;
   margin-bottom:5px;
 }
 
-.my-file-input {
-  width:200px;
-  max-width:100%;
-  margin:5px;
-}
 
 .button-container {
   display:flex;
