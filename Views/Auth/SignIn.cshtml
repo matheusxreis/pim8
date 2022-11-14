@@ -1,35 +1,54 @@
 @model pim8.Models.AuthViewModel
 @{
-    ViewData["Title"] = "SignIn";
+    ViewData["Title"] = "Bem-vindo";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Authenticate in application</h1>
+    <p class="lead">
+    Se autentique para acessar a aplicação.
+    </p>
     
     <section id="login_form">
 
         @using (Html.BeginForm("SignIn", "Auth", "aaaaaaaaaaaaaaa", FormMethod.Post)){
             
-            @Html.ValidationSummary(true,"",new { @class="text-danger"})
 
+            <div class="container-little ">
+          
+            @Html.ValidationSummary(true,"",new { @class="text-danger"})
+            <div class="form-container">
              <div class="form-group">
-            <div class="col-md-10">
-            @Html.LabelFor(m=> m.username)
-            @Html.TextBoxFor(m => m.username)  
+            <div class="col-md-10 input-container">
+            @Html.LabelFor(m=> m.username, new {@for="usernameInput"})
+            @Html.TextBoxFor(m => m.username, new { @class="form-control big-input",  @id="usernameInput", @placeholder="Nome de usuário"})  
             @Html.ValidationMessageFor( m => m.username, "", new { @class="text-danger"})
             </div>
             </div>
 
             <div class="form-group">
 
-            <div class="col-md-10">
+            <div class="col-md-10 input-container">
             @Html.LabelFor(m=> m.password)
-            @Html.PasswordFor(m => m.password)  
+            @Html.PasswordFor(m => m.password, new { @class="form-control big-input", @id="passwordInput", @placeholder="Senha"})  
             @Html.ValidationMessageFor( m => m.password, "", new { @class="text-danger"})
             </div>
            </div>
 
-            <input type="submit" value="Logar"/>
+
+            <input 
+            class="btn btn-outline-primary total-button"
+            type="submit" value="Entrar"/>
+            </div>
+              <button 
+            class="btn btn-outline-secondary total-button">
+            <a href="@Url.Action("SignUp", "Auth")">
+            Registre-se
+                </a>
+            </button>
+            
+
+        </div>
         }
+           
     </section>
 </div>

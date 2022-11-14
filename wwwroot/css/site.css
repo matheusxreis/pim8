@@ -28,6 +28,21 @@ body {
   box-shadow: 1px 1px 5px 1px #888888;
   max-width:100%;
   background-color: #fff;
+  padding:24px;
+
+}
+
+.container-little {
+  max-width:100%;
+  width:500px;
+  margin:0 auto;
+  height: auto;
+  margin:0 auto;
+  border-radius:7px;
+  box-shadow: 1px 1px 5px 1px #888888;
+  max-width:100%;
+  background-color: #fff;
+  padding:24px;
 
 }
 
@@ -121,5 +136,56 @@ body {
   padding-right:30px;
   padding-bottom:30px;
   gap:6px;
+  margin-top:5px;
 
 }
+
+.input-container {
+  display:flex;
+  flex-direction:column;
+  align-items:start;
+  justify-content:start;
+  width:100%;
+}
+
+.form-container {
+  margin:0 auto;
+  max-width:100%;
+
+}
+
+.total-button {
+  width:500px;
+  margin-top:15px;
+  max-width:100%;
+}
+
+.big-input {
+  width:100%;
+}
+
+
+.signup-container {
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+}
+
+.signup-child {
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  max-width:40%;
+  }
+
+a {
+  text-decoration: none;
+  color: #c4c4c4;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #c4c4c4;
+}
+
+

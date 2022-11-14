@@ -4,67 +4,94 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Se cadastre!</h1>
-
+    <p class="lead">
+    Preencha as informação abaixo para se registrar na aplicação.
+    </p>
     <section id="login_form">
 
         @using (Html.BeginForm("SignUp", "Auth", "aaaaaaaaaaaaaaa", FormMethod.Post)){
-             
-            <div class="form-group">
-            <div class="col-md-10">
+            <div class="container-default">
+                <div class="signup-container">
+
+        
+        <div class="signup-child">
+             <div class="form-group">
+            <div class="col-md-10 input-container">
             @Html.LabelFor(m=> m.name)
-            @Html.TextBoxFor(m => m.name)  
+            @Html.TextBoxFor(m => m.name,  new { @class="form-control big-input", 
+                                         @id="nameInput", 
+                                         @placeholder="Nome"})  
             @Html.ValidationMessageFor( m => m.name, "", new { @class="text-danger"})
             </div>
             </div>
             <div class="form-group">
-            <div class="col-md-10">
+            <div class="col-md-10 input-container">
             @Html.LabelFor(m=> m.username)
-            @Html.TextBoxFor(m => m.username)  
+            @Html.TextBoxFor(m => m.username, new { @class="form-control big-input", 
+                                         @id="usernameInput", 
+                                         @placeholder="Nome de usuário"})   
             @Html.ValidationMessageFor( m => m.username, "", new { @class="text-danger"})
             </div>
             </div>
 
             <div class="form-group">
-            <div class="col-md-10">
+            <div class="col-md-10 input-container">
             @Html.LabelFor(m=> m.email)
-            @Html.TextBoxFor(m => m.email)  
+            @Html.TextBoxFor(m => m.email, new { @class="form-control big-input", 
+                                         @id="emailInput", 
+                                         @placeholder="E-mail"})  
             @Html.ValidationMessageFor( m => m.email, "", new { @class="text-danger"})
             </div>
             </div>
 
             <div class="form-group">
-            <div class="col-md-10">
+            <div class="col-md-10 input-container">
             @Html.LabelFor(m=> m.cpf)
-            @Html.TextBoxFor(m => m.cpf)  
+            @Html.TextBoxFor(m => m.cpf, new { @class="form-control big-input", 
+                                         @id="cpfInput", 
+                                         @placeholder="CPF"})  
             @Html.ValidationMessageFor( m => m.cpf, "", new { @class="text-danger"})
             </div>
             </div>
-
+            </div>
+            <div class="signup-child">
             <div class="form-group">
-            <div class="col-md-10">
+            <div class="col-md-10 input-container">
             @Html.LabelFor(m=> m.phone)
-            @Html.TextBoxFor(m => m.phone)  
+            @Html.TextBoxFor(m => m.phone, new { @class="form-control big-input", 
+                                         @id="phoneInput", 
+                                         @placeholder="Telefone"})  
             @Html.ValidationMessageFor( m => m.phone, "", new { @class="text-danger"})
             </div>
             </div>
 
             <div class="form-group">
-            <div class="col-md-10">
+            <div class="col-md-10 input-container">
             @Html.LabelFor(m=> m.password)
-            @Html.PasswordFor(m => m.password)  
+            @Html.PasswordFor(m => m.password, new { @class="form-control big-input", 
+                                         @id="passwordInput", 
+                                         @placeholder="Senha"})  
             @Html.ValidationMessageFor( m => m.password, "", new { @class="text-danger"})
             </div>
             </div>
             <div class="form-group">
-            <div class="col-md-10">
+            <div class="col-md-10 input-container">
             @Html.LabelFor(m=> m.confirmation_password)
-            @Html.PasswordFor(m => m.confirmation_password)  
+            @Html.PasswordFor(m => m.confirmation_password, new { @class="form-control big-input", 
+                                         @id="confirmationPasswordInput", 
+                                         @placeholder="Confirme a senha"})  
             @Html.ValidationMessageFor( m => m.confirmation_password, "", new { @class="text-danger"})
             </div>
             </div>
 
-            <input type="submit" value="Logar"/>
+            <input 
+            class="btn btn-outline-primary total-button"
+            type="submit" 
+            value="Registrar"/>
+            </div>
+            </div>
+            </div>
+
         }
     </section>
 </div>
