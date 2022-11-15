@@ -54,11 +54,24 @@ namespace pim8.Controllers
                             AddressViewModel address
         ){  
 
-            Console.WriteLine("====================");
+            string? id = Request.Cookies["SESSION_UNIP_PIM8"];
+            
+            if(ModelState.IsValid && id != null){
 
-            Console.WriteLine(
-                address.cep
+             
+            AddressModel userAddress = new AddressModel(
+                address.place,
+                address.number,
+                address.cep,
+                address.neighborhood,
+                address.city, 
+                address.state,
+                id
             );
+
+            _addressRepository.save(userAddress);
+
+            }
             return View();
         }
     }
