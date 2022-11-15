@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using pim8.Models.Database;
+using pim8.Models;
 
 
 namespace pim8.Controllers
@@ -42,6 +43,19 @@ namespace pim8.Controllers
 
 
         public IActionResult UpdateAddress(){
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult UpdateAddress(
+                            AddressViewModel address
+        ){  
+
+            Console.WriteLine("====================");
+
+            Console.WriteLine(
+                address.cep
+            );
             return View();
         }
     }
