@@ -1,1 +1,99 @@
-<h1> oi </h1>
+@model pim8.Models.AddressViewModel
+@{
+    ViewData["Title"] = "Adicionar Endereço";
+}
+7
+<div class="text-center">
+
+    <p class="lead">
+    Por favor, atualize seu endereço. 
+    </p>
+   @using (Html.BeginForm("SignUp", "Auth", "aaaaaaaaaaaaaaa", FormMethod.Post)){
+            <div class="container-default">
+
+        
+            <div class="form-group">
+            <div class="col-md-10 input-container">
+            @Html.LabelFor(m=> m.cep)
+            @Html.TextBoxFor(m => m.cep,  new { @class="form-control big-input", 
+                                         @id="cepInput", 
+                                         @placeholder="CEP"})  
+            @Html.ValidationMessageFor( m => m.cep, "", new { @class="text-danger"})
+            </div>
+            </div>
+
+            <div class="form-group">
+            <div class="col-md-10 input-container">
+            @Html.LabelFor(m=> m.place)
+            @Html.TextBoxFor(m => m.place,  new { @class="form-control big-input", 
+                                         @id="placeInput", 
+                                         @readonly=true,
+                                         @placeholder="Logradouro"})  
+            @Html.ValidationMessageFor( m => m.cep, "", new { @class="text-danger"})
+            </div>
+            </div>
+
+        
+            <div class="form-group">
+            <div class="col-md-10 input-container">
+            @Html.LabelFor(m=> m.neighborhood)
+            @Html.TextBoxFor(m => m.neighborhood,  new { @class="form-control big-input", 
+                                         @id="neighInput", 
+                                         @readonly=true,
+                                         @placeholder="Bairro"})  
+            @Html.ValidationMessageFor( m => m.neighborhood, "", new { @class="text-danger"})
+            </div>
+            </div>
+
+            <div class="form-group">
+            <div class="col-md-10 input-container">
+            @Html.LabelFor(m=> m.number)
+            @Html.TextBoxFor(m => m.number,  new { @class="form-control big-input", 
+                                         @id="numberInput", 
+                                         @placeholder="Number"})  
+            @Html.ValidationMessageFor( m => m.number, "", new { @class="text-danger"})
+            </div>
+            </div>
+
+            <div class="form-group">
+            <div class="col-md-10 input-container">
+            @Html.LabelFor(m=> m.city)
+            @Html.TextBoxFor(m => m.city,  new { @class="form-control big-input", 
+                                         @id="cityInput", 
+                                        @readonly=true,
+                                         @placeholder="Cidade"})  
+            @Html.ValidationMessageFor( m => m.city, "", new { @class="text-danger"})
+            </div>
+            </div>
+
+            <div class="form-group">
+            <div class="col-md-10 input-container">
+            @Html.LabelFor(m=> m.state)
+            @Html.TextBoxFor(m => m.state,  new { @class="form-control big-input", 
+                                         @id="stateInput", 
+                                          @readonly=true,
+                                         @placeholder="Estado"})  
+            @Html.ValidationMessageFor( m => m.state, "", new { @class="text-danger"})
+            </div>
+            </div>
+
+            <div class="form-group">
+            <div class="col-md-10 input-container">
+            @Html.LabelFor(m=> m.complement)
+            @Html.TextBoxFor(m => m.complement,  new { @class="form-control big-input", 
+                                         @id="complementInput", 
+                                         @placeholder="Complemento"})  
+            @Html.ValidationMessageFor( m => m.complement, "", new { @class="text-danger"})
+            </div>
+            </div>
+            
+        
+            <input 
+            class="btn btn-outline-primary total-button"
+            type="submit" 
+            value="Salvar"/>
+            </div>
+            
+
+        }
+</div>
