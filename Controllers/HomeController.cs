@@ -33,7 +33,7 @@ public class HomeController : Controller
         ViewData["name"] = user?.name ?? "";
         ViewData["email"] = user?.email ?? "";
 
-        return View();
+        return RedirectToAction("Profile", "Home");
     }
 
     public IActionResult Profile()
