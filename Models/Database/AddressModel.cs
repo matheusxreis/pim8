@@ -47,7 +47,7 @@ namespace pim8.Models.Database
      [Column("state")]
      public string state { get; set; }
       [Column("complement")]
-     public string complement { get; set; }
+     public string? complement { get; set; } = null;
      [Column("user")]
      public string user { get; set; }
 
