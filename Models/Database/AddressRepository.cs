@@ -15,6 +15,11 @@ namespace pim8.Models.Database {
             _context.SaveChanges();
         }
 
+        public AddressModel? getAddress(string id){
+
+          return _context.address.FirstOrDefault(x=> x.user == id);
+        }
+
 
    
     }
