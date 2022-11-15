@@ -147,12 +147,15 @@ public class AuthController : Controller
     }
 
     [HttpPost]
-    public IActionResult DeleteProfile()
+    public IActionResult DeleteProfile(string email)
     {
 
-        string email = Request.Query["email"].ToString();
+      //string email = Request.Query["email"].ToString();
+      Console.Write("================= email ================");
+      Console.WriteLine(email);
         _userRepository.remove(email);
-        return RedirectToAction("SignOut", "Auth");
+        return Json(new { status = "success" });
+        //return RedirectToAction("SignOut", "Auth");
     }
 
     [Route("Auth/ConfirmEmail/{token?}")]

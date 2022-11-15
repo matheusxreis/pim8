@@ -63,7 +63,9 @@
         </div>
 
          </div>
-         <div class="button-container">
+         <div 
+            id="btnDelete"
+            class="button-container">
              <button type="button" 
             class="btn btn-outline-danger">
             Deletar Conta
@@ -76,13 +78,6 @@
             </button>
          </div>
     </div>
-
-    @using (Html.BeginForm("DeleteProfile", "Auth", new { email = @ViewBag.email }, FormMethod.Post))
-    {
-
-        <input type="submit" value="Deletar Conta" />
-    }
-
    
     @section Scripts {
     <script>
@@ -157,6 +152,28 @@
                 $("#profileImg").attr("src", "/img/avatar.png");
 
             } 
+        })
+
+        $("#btnDelete").on("click", () => { 
+            
+           var result = confirm("Você tem certeza que deseja deletar sua conta? Esse tipo de ação é irreversível.")
+            var email = $("#emailInput").attr("value");
+           if(result){
+               $.ajax({
+                url: "@Url.Action("DeleteProfile","Auth")",
+                type: "POST",
+                data: { email: email },
+                dataType: "json",
+                success: function (result) {
+                    if (result.status === "success") {
+                        location.reload();
+                    }
+                },
+                error: function (err) { console.log(err) }
+            })
+
+            window.location.href = "/Auth/SignOut"
+         }
         })
     </script>
     }
