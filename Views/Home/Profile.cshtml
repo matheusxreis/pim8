@@ -64,9 +64,11 @@
 
          </div>
          <div 
-            id="btnDelete"
             class="button-container">
-             <button type="button" 
+            
+             <button 
+            id="btnDelete"
+             type="button" 
             class="btn btn-outline-danger">
             Deletar Conta
             </button>
@@ -87,6 +89,7 @@
         let changeData = false;
 
         const enableButton = () =>  $("#btnUpload").attr('disabled', false);
+        const disableButton = () =>  $("#btnUpload").attr('disabled', true);
         const getMimeType = base64 => base64.split(";")[0].split(":")[1];
         const toBase64 = file => new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -95,6 +98,44 @@
         })
         const isFileValid = mimeType => acceptTypes.some(x => x === mimeType);
 
+        const updatePhoto = () => {
+
+              if (!base64) { return alert("Selecione uma imagem png ou jpeg.") }
+            const mime = getMimeType(base64);
+            if (!isFileValid(mime)) { return alert("Selecione uma imagem png ou jpeg.") }
+
+            $.ajax({
+                url: "@Url.Action("UpdatePhoto","User")",
+                type: "POST",
+                data: { file: base64 },
+                dataType: "json",
+                success: function (result) {
+                    if (result.status === "success") {
+                        //location.reload();
+                    }
+                },
+                error: function (err) { console.log(err) }
+            })
+        }
+
+        const updateData = () => {
+
+            const username = $("#usernameInput").attr("value");
+            const name = $("#nameInput").attr("value");
+
+             $.ajax({
+                url: "@Url.Action("UpdateData","User")",
+                type: "POST",
+                data: { username: username, name: name},
+                dataType: "json",
+                success: function (result) {
+                    if (result.status === "success") {
+                        //location.reload();
+                    }
+                },
+                error: function (err) { console.log(err) }
+            })
+        }
         $("#profilePhoto").on("change", async (e) => {
            
             console.log(e.target.files);
@@ -110,34 +151,64 @@
             }
         })
         $("#btnUpload").on("click", () => {
-            if(!changePhoto && changeData) { return alert("Dados alterados.") }
-            if (!base64) { return alert("Selecione uma imagem png ou jpeg.") }
-            const mime = getMimeType(base64);
-            if (!isFileValid(mime)) { return alert("Selecione uma imagem png ou jpeg.") }
+           // if(!changePhoto && changeData) { return alert("Dados alterados.") }
+           
+           
+            if(changePhoto){
+                updatePhoto();
+            }
+            if(changeData){
+                updateData();
+            }
 
-            $.ajax({
-                url: "@Url.Action("UpdatePhoto","User")",
-                type: "POST",
-                data: { file: base64 },
-                dataType: "json",
-                success: function (result) {
-                    if (result.status === "success") {
-                        location.reload();
-                    }
-                },
-                error: function (err) { console.log(err) }
-            })
-
-
+            if(changePhoto || changeData){
+                alert("Dados atualizados com sucesso.")
+                
+                location.reload();
+            }
 
         })
 
         $("#nameInput").on("dblclick", (e)=> {
            $("#nameInput").attr("readonly", false);
+            enableButton();
+            changeData = true;
+
+
+        })
+        $("#nameInput").on("change", (e) => {
+             $("#nameInput").attr("value", e.target.value)
+            var nameIsValid = $("#nameInput").attr("value").trim().length>0;
+            console.log(e.target.value)
+            if(nameIsValid){
+                console.log('valid')
+                changeData = true;
+                enableButton();
+            }else {
+                changeData = false;
+                disableButton();
+                console.log('not valid')
+            }
+
         })
         $("#usernameInput").on("dblclick", (e)=> {
            $("#usernameInput").attr("readonly", false);
+            enableButton();
+            changeData = true;
         })
+       $("#usernameInput").on("change", (e) => {
+           $("#usernameInput").attr("value", e.target.value)
+            var usernameIsValid = $("#usernameInput").attr("value").trim().length>0;
+            if(usernameIsValid){
+                changeData = true;
+                enableButton();
+            }else {
+                 changeData = false;
+                disableButton();
+            }
+
+       })
+
         $("#emailInput").on("dblclick", (e)=> {
            alert("No momento ainda não é possível alterar o e-mail.")
         })

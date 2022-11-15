@@ -29,6 +29,16 @@ namespace pim8.Controllers
 
             return Json(new { status = "success" });
         }
+
+        [HttpPost]
+        public IActionResult UpdateData(string username, string name)
+        {
+            string? id = Request.Cookies["SESSION_UNIP_PIM8"];
+            if(id!=null){
+             _userRepository.updateData(id, username, name);
+            }
+             return Json(new { status = "success" });
+        }
     }
 
 }
