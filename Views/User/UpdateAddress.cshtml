@@ -101,9 +101,7 @@
      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
         <script>
 
-            $("#btnSave").on("click", ()=> {
-                saveAddress();
-            })
+            
             $(document).ready(()=>{
                 $('#cepInput').mask("00000-000")
             })
@@ -144,37 +142,7 @@
             }
 
 
-            function saveAddress(){
-
-                const place = $("#placeInput").attr("value");
-                const city = $("#cityInput").attr("value");
-                const state = $("#stateInput").attr("value");
-                const neigh = $("#neighInput").attr("value");
-                const number = $("#numberInput").attr("value");
-                const complement = $("#complementInput").attr("value");
-
-                console.log($("#placeInput").attr("value"));
-                console.log(neighborhood, city, state, neigh, number, complement)
-                  $.ajax({
-                        url: "@Url.Action("UpdateAddress", "User")",
-                        type: "POST",
-                        dataType:"json",
-                        data: {
-                            place:place, 
-                            city:city, 
-                            state:state,
-                            neigh:neigh, 
-                            number:number,
-                            complement:complement
-                        },
-                        success:()=> {
-                            alert("Endereço alterado com sucesso.");
-                           // window.reload();
-                        },
-                        error: (d)=>{console.log(d)}
-                        })
-
-            }
+        
         </script>
     }
 </div>
