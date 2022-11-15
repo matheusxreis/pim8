@@ -91,9 +91,88 @@
             <input 
             class="btn btn-outline-primary total-button"
             type="submit" 
+            id="btnSave"
             value="Salvar"/>
             </div>
             
 
         }
+    @section Scripts {
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+        <script>
+
+            $("#btnSave").on("click", ()=> {
+                saveAddress();
+            })
+            $(document).ready(()=>{
+                $('#cepInput').mask("00000-000")
+            })
+
+            let city;
+            let neighborhood;
+            let place;
+            let state;
+
+            $("#cepInput").on("change", (e)=>{
+                const value = e.target.value.replace("-","")
+                if(e.target.value.trim().length>=8){
+                     $.ajax({
+                        url: `https://cdn.apicep.com/file/apicep/${e.target.value}.json`,
+                        type: "GET",
+                        success:(result)=>{
+                            setAddressVariables(result);
+                            setAddress();
+                        }
+                        })
+                }
+            })
+          
+        
+            function setAddressVariables(obj){
+                city = obj.city;
+                state = obj.state;
+                place = obj.address;
+                neighborhood = obj.district;
+                
+            }
+
+            function setAddress(){
+                $("#placeInput").attr("value", place);
+                $("#cityInput").attr("value", city);
+                $("#stateInput").attr("value", state);
+                $("#neighInput").attr("value", neighborhood);
+            }
+
+
+            function saveAddress(){
+
+                const place = $("#placeInput").attr("value");
+                const city = $("#cityInput").attr("value");
+                const state = $("#stateInput").attr("value");
+                const neigh = $("#neighInput").attr("value");
+                const number = $("#numberInput").attr("value");
+                const complement = $("#complementInput").attr("value");
+
+                  $.ajax({
+                        url: "@Url.Action("UpdateAddress", "User")",
+                        type: "POST",
+                        dataType:"json",
+                        data: {
+                            place, 
+                            city, 
+                            state,
+                            neigh, 
+                            number,
+                            complement
+                        }
+                        success:()=> {
+                            alert("Endereço alterado com sucesso.")
+                            window.reload();
+                        }
+                        })
+
+            }
+        </script>
+    }
 </div>
+
