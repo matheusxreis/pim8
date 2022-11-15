@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Adicionar Endereço";
 }
-7
+
 <div class="text-center">
 
     <p class="lead">
@@ -50,7 +50,7 @@
             @Html.LabelFor(m=> m.number)
             @Html.TextBoxFor(m => m.number,  new { @class="form-control big-input", 
                                          @id="numberInput", 
-                                         @placeholder="Number"})  
+                                            @placeholder="Nº"})  
             @Html.ValidationMessageFor( m => m.number, "", new { @class="text-danger"})
             </div>
             </div>
@@ -164,7 +164,7 @@
                             neigh, 
                             number,
                             complement
-                        }
+                        },
                         success:()=> {
                             alert("Endereço alterado com sucesso.")
                             window.reload();
