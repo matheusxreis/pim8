@@ -72,7 +72,7 @@ namespace pim8.Controllers
             _addressRepository.save(userAddress);
 
             }
-            return View();
+            return RedirectToAction("Profile", "Home");
         }
     }
 
