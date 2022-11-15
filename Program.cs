@@ -20,6 +20,7 @@ builder.Services.AddScoped<pim8.Controllers.iHelpers.iEncryptPassword, pim8.Help
 builder.Services.AddScoped<pim8.Controllers.iHelpers.iComparePassword, pim8.Helpers.Encrypter>();
 builder.Services.AddScoped<pim8.Controllers.iHelpers.iSendMail, pim8.Services.MailService>();
 builder.Services.AddScoped<pim8.Controllers.iHelpers.iGenerateEmailToken, pim8.Helpers.GenerateToken>();
+builder.Services.AddScoped<pim8.Controllers.iHelpers.iValidatorEmail, pim8.Helpers.Validator>();
 
 
 var app = builder.Build();

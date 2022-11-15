@@ -13,19 +13,23 @@ public class AuthController : Controller
     private readonly iEncryptPassword _encrypt;
     private readonly iSendMail _sendMail;
     private readonly iGenerateEmailToken _generateEmailToken;
+    private readonly iValidatorEmail _validator;
 
     public AuthController(
         iUserRepository userRepository,
         iComparePassword compare,
         iEncryptPassword encrypt,
         iSendMail sendMail,
-        iGenerateEmailToken generateEmailToken)
+        iGenerateEmailToken generateEmailToken,
+        iValidatorEmail validator)
     {
         _userRepository = userRepository;
         _compare = compare;
         _encrypt = encrypt;
         _sendMail = sendMail;
         _generateEmailToken = generateEmailToken;
+        _validator = validator;
+
     }
 
     public IActionResult SignIn()
@@ -80,6 +84,10 @@ public class AuthController : Controller
     public IActionResult SignUp(UserViewModel userModel)
     {
 
+        if(!_validator.isEmailValid(userModel.email??"")) {
+            ModelState.AddModelError("email", "Email inválido.");
+            return View();
+        }
         if (_userRepository.getUserByUsername(userModel.username) != null)
         {
             ModelState.AddModelError("username", "Nome de usuário existente.");
