@@ -8,7 +8,7 @@
     <p class="lead">
     Por favor, atualize seu endereço. 
     </p>
-   @using (Html.BeginForm("SignUp", "Auth", "aaaaaaaaaaaaaaa", FormMethod.Post)){
+   @using (Html.BeginForm("UpdateAddress", "User", "", FormMethod.Post)){
             <div class="container-default">
 
         
@@ -153,22 +153,25 @@
                 const number = $("#numberInput").attr("value");
                 const complement = $("#complementInput").attr("value");
 
+                console.log($("#placeInput").attr("value"));
+                console.log(neighborhood, city, state, neigh, number, complement)
                   $.ajax({
                         url: "@Url.Action("UpdateAddress", "User")",
                         type: "POST",
                         dataType:"json",
                         data: {
-                            place, 
-                            city, 
-                            state,
-                            neigh, 
-                            number,
-                            complement
+                            place:place, 
+                            city:city, 
+                            state:state,
+                            neigh:neigh, 
+                            number:number,
+                            complement:complement
                         },
                         success:()=> {
-                            alert("Endereço alterado com sucesso.")
-                            window.reload();
-                        }
+                            alert("Endereço alterado com sucesso.");
+                           // window.reload();
+                        },
+                        error: (d)=>{console.log(d)}
                         })
 
             }
