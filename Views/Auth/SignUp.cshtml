@@ -47,7 +47,7 @@
             <div class="form-group">
             <div class="col-md-10 input-container">
             @Html.LabelFor(m=> m.cpf)
-            @Html.TextBoxFor(m => m.cpf, new { @class="form-control big-input", 
+            @Html.TextBoxFor(m => m.cpf, new { @class="form-control big-input cpfInput", 
                                          @id="cpfInput", 
                                          @placeholder="CPF"})  
             @Html.ValidationMessageFor( m => m.cpf, "", new { @class="text-danger"})
@@ -96,9 +96,14 @@
     </section>
 
      @section Scripts {
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
         <script>
+
+    
+
             $(document).ready(()=>{
-                //$('#cpfInput').mask("000.000.000-00", {reverse:true})
+                $('#cpfInput').mask("000.000.000-00", {reverse:true})
+                $('#phoneInput').mask("(00) 00000-0000")
             })
 
         
