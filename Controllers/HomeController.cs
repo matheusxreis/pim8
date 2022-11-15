@@ -8,10 +8,14 @@ namespace pim8.Controllers;
 public class HomeController : Controller
 {
     private readonly iUserRepository _userRepository;
-
-    public HomeController(iUserRepository userRepository)
+    private readonly iAddressRepository _addressRepository;
+    public HomeController(
+        iUserRepository userRepository,
+        iAddressRepository addressRepository
+    )
     {
      _userRepository = userRepository;
+     _addressRepository = addressRepository;
     }
 
    
@@ -35,12 +39,18 @@ public class HomeController : Controller
     public IActionResult Profile()
     {
         UserModel? user = getUserFromCookies();
+        AddressModel? address =_addressRepository.getAddress(user?.id ?? "");
+
 
         ViewData["username"] = user?.username ?? "";
         ViewData["name"] = user?.name ?? "";
         ViewData["email"] = user?.email ?? "";
         ViewData["cpf"] = user?.cpf ?? "";
         ViewData["photo"] = user?.photo;
+
+        ViewData["place"] = address?.place ?? "";
+        ViewData["number"] = address?.number ?? "";
+        ViewData["state"] = address?.state ?? "";
 
         return View();
     }
