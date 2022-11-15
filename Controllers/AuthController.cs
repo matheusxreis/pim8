@@ -14,6 +14,8 @@ public class AuthController : Controller
     private readonly iSendMail _sendMail;
     private readonly iGenerateEmailToken _generateEmailToken;
     private readonly iValidatorEmail _validator;
+    private readonly iValidatorCPF _validatorCPF;
+
 
     public AuthController(
         iUserRepository userRepository,
@@ -21,7 +23,8 @@ public class AuthController : Controller
         iEncryptPassword encrypt,
         iSendMail sendMail,
         iGenerateEmailToken generateEmailToken,
-        iValidatorEmail validator)
+        iValidatorEmail validator,
+        iValidatorCPF validatorCPF)
     {
         _userRepository = userRepository;
         _compare = compare;
@@ -29,6 +32,7 @@ public class AuthController : Controller
         _sendMail = sendMail;
         _generateEmailToken = generateEmailToken;
         _validator = validator;
+        _validatorCPF = validatorCPF;
 
     }
 
@@ -88,6 +92,12 @@ public class AuthController : Controller
             ModelState.AddModelError("email", "Email inválido.");
             return View();
         }
+         if(!_validatorCPF.isCPFValid(userModel.cpf??"")) {
+            ModelState.AddModelError("cpf", "CPF inválido.");
+            return View();
+        }
+
+
         if (_userRepository.getUserByUsername(userModel.username) != null)
         {
             ModelState.AddModelError("username", "Nome de usuário existente.");
