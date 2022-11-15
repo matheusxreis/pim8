@@ -19,7 +19,7 @@
         class="form-control my-input"
         id="profilePhoto" 
         type="file" />
-        <p>@ViewBag.place, @ViewBag.number - @ViewBag.state</p>
+        <p id="addressInfo">@ViewBag.place, @ViewBag.number - @ViewBag.state</p>
         <a 
         href="@Url.Action("UpdateAddress", "User")"
         class="link-primary pointer"
@@ -228,6 +228,12 @@
                 $("#profileImg").attr("src", "/img/avatar.png");
 
             } 
+
+            const addressInfo = $("#addressInfo").text().replace(",", "").replace("-", "");
+            console.log(addressInfo)
+            if(addressInfo.trim().length === 0){
+                $("#addressInfo").text("Não existe endereço cadastrado.");
+            }
         })
 
         $("#btnDelete").on("click", () => { 
