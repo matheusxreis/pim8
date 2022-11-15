@@ -39,6 +39,11 @@ namespace pim8.Controllers
             }
              return Json(new { status = "success" });
         }
+
+
+        public IActionResult UpdateAddress(){
+            return View();
+        }
     }
 
 }
