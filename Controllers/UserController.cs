@@ -10,10 +10,13 @@ namespace pim8.Controllers
 
 
         private readonly iUserRepository _userRepository;
+        private readonly iAddressRepository _addressRepository;
 
-        public UserController(iUserRepository userRepository)
+        public UserController(iUserRepository userRepository,
+        iAddressRepository addressRepository)
         {
             _userRepository = userRepository;
+            _addressRepository = addressRepository;
         }
 
         [HttpPost]
