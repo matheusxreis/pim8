@@ -28,7 +28,7 @@ namespace pim8.Models
      public string state { get; set; }
 
     [Display(Name = "Complemento")]     
-     public string complement { get; set; }
+     public string? complement { get; set; } = null;
     
     }
 }
