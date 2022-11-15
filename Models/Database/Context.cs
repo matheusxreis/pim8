@@ -11,5 +11,6 @@ namespace pim8.Models.Database
         }
 
         public DbSet<UserModel> users { get; set; }
+        public DbSet<AddressModel> address { get; set; }
     }
 }
